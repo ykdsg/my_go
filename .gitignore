@@ -17,3 +17,4 @@
 *.idea
 # 本地module缓存
 /pkg/
+/bin/
