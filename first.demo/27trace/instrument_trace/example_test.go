@@ -1,6 +1,6 @@
 package trace_test
 
-import trace "hz.com/yk/instrument_trace"
+import "hz.com/yk/instrument_trace"
 
 func a() {
 	defer trace.Trace()()
