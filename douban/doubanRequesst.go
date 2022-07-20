@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -16,8 +18,9 @@ var catMap = map[string]string{"book": "1001", "movie": "1002"}
 var query = os.Args[1]
 var model = os.Args[2]
 var selection = os.Getenv("selection")
+var isOrder = false
 var tip = "Go to Douban"
-var selections = []string{"douban", "book", "movie"}
+var selections = []string{"douban", "book", "book-order", "movie"}
 
 func init() {
 	if selection == "" {
@@ -122,6 +125,21 @@ func parseStructure(html string) []*ItemInfo {
 func getInfoList() []*ItemInfo {
 	html := requestUrl(getSearchUrl())
 	infoList := parseStructure(html)
+
+	if isOrder {
+		sort.Slice(infoList, func(i, j int) bool {
+			ratingNumI, err := strconv.ParseFloat(infoList[i].ratingNum, 32)
+			//如果不能转化当做评分很低
+			if err != nil {
+				ratingNumI = 0
+			}
+			ratingNumJ, err := strconv.ParseFloat(infoList[j].ratingNum, 32)
+			if err != nil {
+				ratingNumJ = 0
+			}
+			return ratingNumI > ratingNumJ
+		})
+	}
 	return infoList
 }
 
@@ -144,6 +162,10 @@ func info() []*Item {
 
 func getDoubanItems() {
 	println("debug info-------------query=" + query + ",selection=" + selection)
+	if selection == "book-order" {
+		isOrder = true
+		selection = "book"
+	}
 	items := make([]*Item, 0)
 	item0 := gen_first_item()
 	items = append(items, item0)
