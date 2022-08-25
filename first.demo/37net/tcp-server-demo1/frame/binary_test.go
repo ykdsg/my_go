@@ -10,7 +10,7 @@ import (
 func TestBinary_write(t *testing.T) {
 	buf := make([]byte, 0, 128)
 	rw := bytes.NewBuffer(buf)
-	var writeNum int32 = 9
+	var writeNum int32 = 300
 
 	//这里writeNum可以用指针，也可以不用指针，因为实际要写入的数据是9（int32），使用指针的好处是节省了复制的开销。
 	//binary.Read 或 Write 会根据参数的宽度，读取或写入对应的字节个数的字节，这里int32 是4字节，那么只会操作数据流中的 4 个字节
@@ -35,4 +35,21 @@ func TestBinary_write(t *testing.T) {
 		t.Errorf("want %d,actual %d", writeNum, readNum)
 	}
 
+}
+
+func TestBigEndian(t *testing.T) {
+	//write
+	original := uint32(500)
+	//这里长度不能比original字节数小
+	bigBuf := make([]byte, 4)
+	binary.BigEndian.PutUint32(bigBuf, original)
+
+	littleBuf := make([]byte, 4)
+	binary.LittleEndian.PutUint32(littleBuf, original)
+
+	result := binary.BigEndian.Uint32(bigBuf)
+
+	if result != original {
+		t.Errorf("result %d,original %d", result, original)
+	}
 }

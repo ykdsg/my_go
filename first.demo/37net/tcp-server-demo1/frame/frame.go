@@ -38,22 +38,20 @@ func (p *myFrameCodec) Encode(write io.Writer, framePayload FramePayload) error 
 
 func (p *myFrameCodec) Decode(reader io.Reader) (FramePayload, error) {
 	var totalLen int32
-	err := binary.Read(reader, binary.BigEndian, &totalLen)
+	err := binary.Read(reader, binary.BigEndian, totalLen)
 	if err != nil {
 		return nil, err
 	}
-
-	buf := make([]byte, totalLen-4)
-	n, err := io.ReadFull(reader, buf)
+	bytes := make([]byte, 0, totalLen-4)
+	length, err := reader.Read(bytes)
 	if err != nil {
 		return nil, err
 	}
-
-	if n != int(totalLen-4) {
+	if length != int(totalLen-4) {
 		return nil, ErrShortRead
 	}
+	return bytes, nil
 
-	return buf, nil
 }
 
 func NewMyFrameCodec() StreamFrameCodec {
