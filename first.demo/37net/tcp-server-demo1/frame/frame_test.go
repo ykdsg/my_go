@@ -52,6 +52,7 @@ type ReturnErrorWriter struct {
 	wc int // 写操作次数技术
 }
 
+//模拟write出错的情况。
 func (w *ReturnErrorWriter) Write(p []byte) (n int, err error) {
 	w.wc++
 	if w.wc >= w.Wn {

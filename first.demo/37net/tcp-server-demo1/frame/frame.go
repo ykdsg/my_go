@@ -18,6 +18,7 @@ var ErrShortRead = errors.New("short read")
 type myFrameCodec struct {
 }
 
+//编码，将字节切片转换为二进制流。
 func (p *myFrameCodec) Encode(write io.Writer, framePayload FramePayload) error {
 	var f = framePayload
 	var totalLen int32 = int32(len(framePayload)) + 4
@@ -36,6 +37,7 @@ func (p *myFrameCodec) Encode(write io.Writer, framePayload FramePayload) error 
 	return nil
 }
 
+//解码，将二进制流转换为字节切片
 func (p *myFrameCodec) Decode(reader io.Reader) (FramePayload, error) {
 	var totalLen int32
 	err := binary.Read(reader, binary.BigEndian, totalLen)
