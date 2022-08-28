@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/ykdsg/tcp-server-demo1/frame"
+	"github.com/ykdsg/tcp-server-demo1/packet"
 	"net"
-	"tcp-server-demo1/frame"
-	"tcp-server-demo1/packet"
 )
 
 func main() {
@@ -13,6 +13,7 @@ func main() {
 		fmt.Println("listen error:", err)
 		return
 	}
+	fmt.Println("server start ok(on *.8888)")
 	for {
 		c, err := l.Accept()
 		if err != nil {
@@ -58,11 +59,11 @@ func handlePacket(framePayload []byte) (ackFramePayload []byte, err error) {
 	case *packet.Submit:
 		submit := p.(*packet.Submit)
 		fmt.Printf("recv submit: id=%s,payload=%s\n", submit.ID, string(submit.Payload))
-		submitAck := packet.SubmitAck{
+		submitAck := &packet.SubmitAck{
 			ID:     submit.ID,
 			Result: 0,
 		}
-		ackFramePayload, err = packet.Encode(&submitAck)
+		ackFramePayload, err = packet.Encode(submitAck)
 		if err != nil {
 			fmt.Println("handleConn:packet encode error:", err)
 			return nil, err

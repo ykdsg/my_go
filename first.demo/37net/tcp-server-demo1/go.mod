@@ -1,4 +1,4 @@
-module tcp-server-demo1
+module github.com/ykdsg/tcp-server-demo1
 
 go 1.18
 

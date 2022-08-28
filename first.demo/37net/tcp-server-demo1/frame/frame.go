@@ -40,12 +40,12 @@ func (p *myFrameCodec) Encode(write io.Writer, framePayload FramePayload) error 
 //解码，将二进制流转换为字节切片
 func (p *myFrameCodec) Decode(reader io.Reader) (FramePayload, error) {
 	var totalLen int32
-	err := binary.Read(reader, binary.BigEndian, totalLen)
+	err := binary.Read(reader, binary.BigEndian, &totalLen)
 	if err != nil {
 		return nil, err
 	}
-	bytes := make([]byte, 0, totalLen-4)
-	length, err := reader.Read(bytes)
+	bytes := make([]byte, totalLen-4)
+	length, err := io.ReadFull(reader, bytes)
 	if err != nil {
 		return nil, err
 	}
