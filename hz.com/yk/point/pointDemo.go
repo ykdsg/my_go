@@ -18,6 +18,14 @@ func main() {
 	a = 300
 	//指向a的地址
 	ptr = &a
+	// 打印ptr的类型
+	fmt.Printf("ptr type: %T\n", ptr)
+	// 打印ptr的指针地址
+	fmt.Printf("ptr address: %p\n", ptr)
+	// 对指针进行取值操作
+	value := *ptr
+	// 取值后的类型，就是原始值的类型
+	fmt.Printf("value type: %T\n", value)
 	//指向指针ptr的地址
 	pptr = &ptr
 
