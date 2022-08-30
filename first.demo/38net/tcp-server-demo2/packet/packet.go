@@ -3,6 +3,7 @@ package packet
 import (
 	"bytes"
 	"fmt"
+	"sync"
 )
 
 // Packet协议定义
@@ -40,6 +41,13 @@ type Packet interface {
 type Submit struct {
 	ID      string
 	Payload []byte
+}
+
+//对象池
+var SubmitPool = sync.Pool{
+	New: func() interface{} {
+		return &Submit{}
+	},
 }
 
 func (s *Submit) Decode(pktBody []byte) error {
@@ -80,12 +88,12 @@ func Decode(packet []byte) (Packet, error) {
 		return nil, nil
 
 	case CommandSubmit:
-		s := Submit{}
+		s := SubmitPool.Get().(*Submit) // 从SubmitPool池中获取一个Submit内存对象
 		err := s.Decode(pktBody)
 		if err != nil {
 			return nil, err
 		}
-		return &s, nil
+		return s, nil
 
 	case CommandSubmitAck:
 		s := SubmitAck{}
