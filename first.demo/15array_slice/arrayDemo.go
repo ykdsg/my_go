@@ -35,7 +35,7 @@ func sliceDemo() {
 
 	var s []int
 	s = append(s, 1)
-	fmt.Println("s append 1:", len(s), cap(s)) //1 1
+	fmt.Println("s append module1:", len(s), cap(s)) //module1 module1
 	s = append(s, 2)
 	fmt.Println("s append 2:", len(s), cap(s)) //2 2
 	s = append(s, 3)
@@ -47,10 +47,10 @@ func sliceDemo() {
 
 	sl := make([]byte, 1, 3)
 	fmt.Println("sl[0]", sl[0])
-	fmt.Println("sl init:", len(sl), cap(sl)) //1 3
+	fmt.Println("sl init:", len(sl), cap(sl)) //module1 3
 	sl = append(sl, 1)
-	fmt.Println("sl[1]", sl[1])
-	fmt.Println("sl append 1:", len(sl), cap(sl)) //2 3
+	fmt.Println("sl[module1]", sl[1])
+	fmt.Println("sl append module1:", len(sl), cap(sl)) //2 3
 	sl = append(sl, 2)
 	fmt.Println("sl append 2:", len(sl), cap(sl)) //3 3
 
