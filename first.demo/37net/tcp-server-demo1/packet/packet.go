@@ -9,7 +9,7 @@ import (
 
 /*
 ### packet header
-1 byte: commandID
+module1 byte: commandID
 
 ### submit packet
 

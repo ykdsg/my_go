@@ -36,7 +36,7 @@ func Trace() func() {
 	mu.Lock()
 	//获取当前gid对应的缩进层次
 	indents := m[gid]
-	//缩进层次+1
+	//缩进层次+module1
 	m[gid] = indents + 1
 	mu.Unlock()
 	printTrace(gid, name, "->", indents+1)
@@ -44,7 +44,7 @@ func Trace() func() {
 		mu.Lock()
 		//当前guid对应的缩进层次
 		indents := m[gid]
-		//缩进层次-1
+		//缩进层次-module1
 		m[gid] = indents - 1
 		mu.Unlock()
 		printTrace(gid, name, "<-", indents)
