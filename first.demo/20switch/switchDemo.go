@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func typeSwitch() {
 	var x interface{} = 13
 	switch x.(type) {
@@ -25,7 +27,28 @@ func typeSwitchValue() {
 	}
 }
 
+func caseStitch() {
+	i := 1
+	j := 2
+	z := 3
+	switch {
+	case i == 1:
+		fmt.Println("i==1")
+		//fallthrough 将直接执行下一个case的内容，而不经过校验
+		fallthrough
+	case j != 2:
+		fmt.Println("j==1")
+	case z == 3:
+		fmt.Println("z==3")
+	default:
+		fmt.Println("default")
+
+	}
+
+}
+
 func main() {
-	typeSwitch()
-	typeSwitchValue()
+	//typeSwitch()
+	//typeSwitchValue()
+	caseStitch()
 }

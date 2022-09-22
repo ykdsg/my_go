@@ -30,4 +30,8 @@ func HandlerSay() {
 
 func main() {
 	Say(HandlerSay)
+	//实际相当于这样的方式，反而更简单
+	//因为SayFunc和HandlerSay的入参和出参一致，可以做类型转换。
+	sayFunc := SayFunc(HandlerSay)
+	sayFunc.Say()
 }
