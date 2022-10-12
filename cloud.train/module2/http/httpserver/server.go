@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/golang/glog"
 	"io"
 	"log"
 	"net/http"
@@ -15,8 +14,8 @@ import (
 func main() {
 	flag.Set("v", "4")
 	flag.Parse()
-	defer glog.Flush()
-	glog.V(2).Info("Starting http server...")
+	//defer glog.Flush()
+	//glog.V(2).Info("Starting http server...")
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", rootHandler)
 	mux.HandleFunc("/healthz", healthz)
