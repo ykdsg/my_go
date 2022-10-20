@@ -27,11 +27,15 @@ func m1() {
 }
 
 //从这个例子中可以看到goroutine 没有这么快启动，但也并不是等函数结束的时候才会启动。
-func main() {
+func checkMulityGoroutineSequence() {
 	fmt.Println("main start..............", util.GoID())
 	go m1()
 	time.Sleep(500 * time.Millisecond)
 	fmt.Println("main end..............", util.GoID())
 	time.Sleep(10 * time.Second)
 	fmt.Println("main finish..............", util.GoID())
+}
+
+func main() {
+	checkMulityGoroutineSequence()
 }
