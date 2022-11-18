@@ -82,6 +82,7 @@ func Test_inOrderTraversal(t *testing.T) {
 
 		root := PreIn2Tree(tc.pre, tc.in)
 		ast.Equal(tc.in, inOrderTraversal(root), "输入:%v", tc)
+		ast.Equal(tc.in, inOrderTraversal_stack(root), "输入:%v", tc)
 	}
 }
 
@@ -93,5 +94,6 @@ func Test_postOrderTraversal(t *testing.T) {
 
 		root := PreIn2Tree(tc.pre, tc.in)
 		ast.Equal(tc.post, postOrderTraversal(root), "输入:%v", tc)
+		ast.Equal(tc.post, postOrderTraversal_stack(root), "输入:%v", tc)
 	}
 }
