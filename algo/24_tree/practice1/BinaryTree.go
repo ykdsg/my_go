@@ -54,16 +54,7 @@ func (this *BinaryTree[T]) Delete(v T) bool {
 	if current == nil {
 		return false
 	}
-	//	判断是否叶子节点，针对叶子结点处理
-	if current.left == nil && current.right == nil {
-		if parent == nil {
-			this.root = nil
-		} else if isLeft {
-			parent.left = nil
-		} else {
-			parent.right = nil
-		}
-	} else if current.left != nil && current.right != nil { // 存在左右2个节点，需要找到右子树的最左子结点
+	if current.left != nil && current.right != nil { // 存在左右2个节点，需要找到右子树的最左子结点
 		leftNode, leftNodeParent := searchLeftNode(current.right)
 		//如果如果leftNodeParent 不为nil，说明右子树最左子节点不是自己
 		if leftNodeParent != nil {
@@ -81,12 +72,15 @@ func (this *BinaryTree[T]) Delete(v T) bool {
 		} else {
 			parent.right = leftNode
 		}
-	} else { //删除的节点仅有一个子节点，这种写法也就比下面分别判断左右子节点的写法少了2行
+	} else { //删除的节点仅有一个子节点，这种写法能顺带解决叶子结点的情况
 		var child *Node[T]
 		if current.left != nil {
 			child = current.left
-		} else {
+		} else if current.right != nil {
 			child = current.right
+		} else {
+			//删除节点是叶子结点
+			child = nil
 		}
 		if parent == nil {
 			this.root = child
@@ -96,7 +90,16 @@ func (this *BinaryTree[T]) Delete(v T) bool {
 			parent.right = child
 		}
 	}
-	//else if current.left != nil && current.right == nil { // 判断是否只有左子节点
+	//	判断是否叶子节点，针对叶子结点处理
+	//if current.left == nil && current.right == nil {
+	//	if parent == nil {
+	//		this.root = nil
+	//	} else if isLeft {
+	//		parent.left = nil
+	//	} else {
+	//		parent.right = nil
+	//	}
+	//} else if current.left != nil && current.right == nil { // 判断是否只有左子节点
 	//	if parent == nil {
 	//		this.root = parent.left
 	//	} else if isLeft {
