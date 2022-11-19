@@ -39,3 +39,20 @@ func TestBST_Insert(t *testing.T) {
 	ast.Equal([]int{2, 5, 7, 3, 1}, bst.PostOrderTraverse(), "后序遍历")
 	ast.Equal([]int{2, 5, 7, 3, 1}, PostOrderTraverse_recursive(bst.root), "后序递归遍历")
 }
+
+func TestBST_Delete(t *testing.T) {
+	bst := NewBinaryTree(1)
+
+	bst.Insert(3)
+	bst.Insert(1)
+	bst.Insert(2)
+	bst.Insert(7)
+	bst.Insert(5)
+
+	bst.PreOrderTraverse()
+	ast := assert.New(t)
+	result := bst.Delete(3)
+	ast.True(result, "delete result:")
+	ast.Equal([]int{1, 2, 5, 7}, InOrderTraverse_recursive(bst.root), "删除后中序遍历验证")
+
+}

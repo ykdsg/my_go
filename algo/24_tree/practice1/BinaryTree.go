@@ -48,6 +48,85 @@ func (this *BinaryTree[T]) Insert(v T) bool {
 	return true
 }
 
+func (this *BinaryTree[T]) Delete(v T) bool {
+	//	找到对应的位置
+	current, parent := this.Search(v)
+	if current == nil {
+		return false
+	}
+	//	判断是否叶子节点，针对叶子结点处理
+	if current.left == nil && current.right == nil {
+		if parent.left == current {
+			parent.left = nil
+		} else {
+			parent.right = nil
+		}
+	} else if current.left != nil && current.right == nil { // 判断是否只有左节点
+		if parent.left == current {
+			parent.left = current.left
+		} else {
+			parent.right = current.left
+		}
+	} else if current.right != nil && current.left == nil { // 判断是否只有右节点
+		if parent.left == current {
+			parent.left = current.right
+		} else {
+			parent.right = current.right
+		}
+
+	} else { // 存在左右2个节点，需要找到右子树的最左子结点
+		node, nodeParent := searchLeftNode(current.right)
+		nodeParent.left = node.right
+		node.left = current.left
+		node.right = current.right
+		if parent.left == current {
+			parent.left = node
+		} else {
+			parent.right = node
+		}
+	}
+
+	return true
+}
+
+// 找到最左边的结点
+func searchLeftNode[T Number](current *Node[T]) (result *Node[T], parent *Node[T]) {
+	if current == nil {
+		return
+	}
+	p := current
+
+	for p != nil {
+		result = p
+		if p.left != nil {
+			parent = p
+		}
+		p = p.left
+	}
+	return
+}
+
+func (this *BinaryTree[T]) Search(v T) (current *Node[T], parent *Node[T]) {
+	p := this.root
+	if p == nil {
+		return
+	}
+	for p != nil {
+		if p.data == v {
+			current = p
+			return
+		} else if p.data > v {
+			parent = p
+			p = p.left
+		} else {
+			parent = p
+			p = p.right
+		}
+
+	}
+	return
+}
+
 // 树的各种遍历，用递归实现还是挺清晰简单的，而且相通性比较好，基本写出来一个排序之后，其他的排序差别不大。
 // 中序遍历，递归实现
 func InOrderTraverse_recursive[T Number](root *Node[T]) (result []T) {
