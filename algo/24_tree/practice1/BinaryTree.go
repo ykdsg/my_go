@@ -50,41 +50,82 @@ func (this *BinaryTree[T]) Insert(v T) bool {
 
 func (this *BinaryTree[T]) Delete(v T) bool {
 	//	找到对应的位置
-	current, parent := this.Search(v)
+	current, parent, isLeft := this.Search(v)
 	if current == nil {
 		return false
 	}
 	//	判断是否叶子节点，针对叶子结点处理
 	if current.left == nil && current.right == nil {
-		if parent.left == current {
+		if parent == nil {
+			this.root = nil
+		} else if isLeft {
 			parent.left = nil
 		} else {
 			parent.right = nil
 		}
-	} else if current.left != nil && current.right == nil { // 判断是否只有左节点
-		if parent.left == current {
-			parent.left = current.left
-		} else {
-			parent.right = current.left
+	} else if current.left != nil && current.right != nil { // 存在左右2个节点，需要找到右子树的最左子结点
+		leftNode, leftNodeParent := searchLeftNode(current.right)
+		//如果如果leftNodeParent 不为nil，说明右子树最左子节点不是自己
+		if leftNodeParent != nil {
+			//删除原来的位置
+			leftNodeParent.left = leftNode.right
+			//调整最左子节点的右子节点为删除节点的右节点
+			leftNode.right = current.right
 		}
-	} else if current.right != nil && current.left == nil { // 判断是否只有右节点
-		if parent.left == current {
-			parent.left = current.right
+		//最左子节点的左节点调整为删除节点的左节点
+		leftNode.left = current.left
+		if parent == nil {
+			this.root = leftNode
+		} else if isLeft {
+			parent.left = leftNode
 		} else {
-			parent.right = current.right
+			parent.right = leftNode
 		}
-
-	} else { // 存在左右2个节点，需要找到右子树的最左子结点
-		node, nodeParent := searchLeftNode(current.right)
-		nodeParent.left = node.right
-		node.left = current.left
-		node.right = current.right
-		if parent.left == current {
-			parent.left = node
+	} else { //删除的节点仅有一个子节点，这种写法也就比下面分别判断左右子节点的写法少了2行
+		var child *Node[T]
+		if current.left != nil {
+			child = current.left
 		} else {
-			parent.right = node
+			child = current.right
+		}
+		if parent == nil {
+			this.root = child
+		} else if isLeft {
+			parent.left = child
+		} else {
+			parent.right = child
 		}
 	}
+	//else if current.left != nil && current.right == nil { // 判断是否只有左子节点
+	//	if parent == nil {
+	//		this.root = parent.left
+	//	} else if isLeft {
+	//		parent.left = current.left
+	//	} else {
+	//		parent.right = current.left
+	//	}
+	//} else if current.right != nil && current.left == nil { // 判断是否只有右子节点
+	//	if parent == nil {
+	//		this.root = current.right
+	//	} else if isLeft {
+	//		parent.left = current.right
+	//	} else {
+	//		parent.right = current.right
+	//	}
+	//
+	//} else { // 存在左右2个节点，需要找到右子树的最左子结点
+	//	node, nodeParent := searchLeftNode(current.right)
+	//	nodeParent.left = node.right
+	//	node.left = current.left
+	//	node.right = current.right
+	//	if parent == nil {
+	//		this.root = node
+	//	} else if isLeft {
+	//		parent.left = node
+	//	} else {
+	//		parent.right = node
+	//	}
+	//}
 
 	return true
 }
@@ -95,29 +136,27 @@ func searchLeftNode[T Number](current *Node[T]) (result *Node[T], parent *Node[T
 		return
 	}
 	p := current
-
-	for p != nil {
-		result = p
-		if p.left != nil {
-			parent = p
-		}
+	result = p
+	for p.left != nil {
+		result = p.left
+		parent = p
 		p = p.left
 	}
 	return
 }
 
-func (this *BinaryTree[T]) Search(v T) (current *Node[T], parent *Node[T]) {
-	p := this.root
+func (this *BinaryTree[T]) Search(v T) (p *Node[T], parent *Node[T], isLeft bool) {
+	p = this.root
 	if p == nil {
 		return
 	}
 	for p != nil {
 		if p.data == v {
-			current = p
 			return
 		} else if p.data > v {
 			parent = p
 			p = p.left
+			isLeft = true
 		} else {
 			parent = p
 			p = p.right
