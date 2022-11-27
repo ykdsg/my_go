@@ -1,5 +1,6 @@
 package _3_array_list
 
+// 给你一个链表的头节点 head ，判断链表中是否有环。
 func hasCycle(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return false
@@ -23,14 +24,14 @@ func hasCycle2(head *ListNode) bool {
 		return false
 	}
 	slow := head
-	fast := head.Next
-	//	因为for 循环的关系，slow 和fast 不能在同一起跑线
+	fast := head
+	//	这样就可以在统一起跑线出发
 	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
 		if fast == slow {
 			return true
 		}
-		slow = slow.Next
-		fast = fast.Next.Next
 	}
 	return false
 }
