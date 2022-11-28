@@ -34,7 +34,7 @@ func swapPairs2(head *ListNode) *ListNode {
 		return head
 	}
 	next := head.Next
-	head.Next = swapPairs(next.Next)
+	head.Next = swapPairs2(next.Next)
 	next.Next = head
 	return next
 }
