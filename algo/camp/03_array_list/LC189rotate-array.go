@@ -49,3 +49,28 @@ func rotate3(nums []int, k int) {
 
 	}
 }
+
+// 通过数据翻转的方法，可以参考下面的解释
+// nums = "----->-->"; k =3
+// result = "-->----->";
+//
+// reverse "----->-->" we can get "<--<-----"
+// reverse "<--" we can get "--><-----"
+// reverse "<-----" we can get "-->----->"
+func rotate4(nums []int, k int) {
+	k %= len(nums)
+	reverseArr(nums)
+	reverseArr(nums[:k])
+	reverseArr(nums[k:])
+}
+
+func reverseArr(nums []int) {
+	n := len(nums) - 1
+	if n <= 0 {
+		return
+	}
+	for i := 0; i < n/2; i++ {
+		nums[i], nums[n-i] = nums[n-i], nums[i]
+	}
+
+}
