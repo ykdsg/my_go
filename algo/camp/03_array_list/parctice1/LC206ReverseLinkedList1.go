@@ -1,10 +1,5 @@
 package parctice1
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
 // 迭代版本
 func reverseList1(head *ListNode) *ListNode {
 	var pre *ListNode
