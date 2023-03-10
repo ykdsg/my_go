@@ -5,3 +5,8 @@ douban网页解析版本，所以数据获取有点慢，这个跟豆瓣网页�
 
 通过以下命令能降低打包大小：
 go build -ldflags '-w -s'
+
+打包不同平台和架构下的包
+CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags '-w -s' -o douban-workflow-mac-amd64-1.2
+CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -ldflags '-w -s' -o douban-workflow-mac-arm64-1.2
+
