@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 // 整体逻辑比较简单，但是时间复杂度有点高，k*n
 func rotate(nums []int, k int) {

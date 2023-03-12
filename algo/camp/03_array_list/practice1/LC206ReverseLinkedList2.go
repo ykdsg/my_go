@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func reverseList2_1(head *ListNode) *ListNode {
 	var pre *ListNode

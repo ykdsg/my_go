@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func plusOne(digits []int) []int {
 	for i := len(digits) - 1; i >= 0; i-- {

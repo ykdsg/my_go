@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 // 使用移动窗口的方式，比递归能大大提升执行效率
 func climbStairs1(n int) int {

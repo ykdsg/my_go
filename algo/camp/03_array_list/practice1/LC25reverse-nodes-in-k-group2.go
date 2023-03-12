@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func reverseKGroup2(head *ListNode, k int) *ListNode {
 	if head == nil || head.Next == nil {

@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 // 代码简洁，但是执行效率没有LC11ContainerWithMostWater 的高，因为没有对比自己短的进行跳过，会有一些无谓的计算。
 func maxArea(height []int) int {

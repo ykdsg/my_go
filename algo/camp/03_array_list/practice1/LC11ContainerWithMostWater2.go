@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 // 使用两端靠近的方法，关键点是左右两端选择更短的那一根进行逼近，同时优化了无谓计算那部分
 func maxArea2(height []int) int {

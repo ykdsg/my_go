@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func moveZeroes1(nums []int) {
 	//表示最左边0的位置

@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func MergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	v := &ListNode{}

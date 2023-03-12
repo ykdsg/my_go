@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func twoSum1(nums []int, target int) []int {
 	valueIndexMap := map[int]int{}

@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 // 迭代版本
 func reverseList1(head *ListNode) *ListNode {

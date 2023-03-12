@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 // 效率不是最优的，因为直接对left 和right 进行移位操作，没有判断是否比之前还短
 func maxArea3(height []int) int {

@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 import (
 	"github.com/stretchr/testify/assert"

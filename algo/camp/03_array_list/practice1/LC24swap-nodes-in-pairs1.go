@@ -1,4 +1,4 @@
-package parctice1
+package practice1
 
 func swapPairs1(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
