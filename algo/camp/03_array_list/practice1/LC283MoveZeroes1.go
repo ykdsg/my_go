@@ -11,8 +11,8 @@ func moveZeroes1(nums []int) {
 				mostLeftZeroIndex = i
 			}
 		} else {
-			//如果不是0，且zeroIndex 已经初始化，只会存在2种情况
-			//1.mostLeftZeroIndex 跟当前index紧挨着
+			// 如果不是0，mostLeftZeroIndex 已经初始化，只会存在2种情况
+			// 1.mostLeftZeroIndex 跟当前index紧挨着
 			//2.zeroIdex 跟当前index 中间隔着连续的0
 			//因此只要跟zeroIndex 交换位置，并且zeroIndex 右移一位
 			if mostLeftZeroIndex >= 0 {
