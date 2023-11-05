@@ -3,8 +3,8 @@ package main
 import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"gopkg.in/natefinch/lumberjack.v2"
 	"net/http"
-	"os"
 )
 
 var sugarLogger *zap.SugaredLogger
@@ -36,8 +36,16 @@ func getEncoder() zapcore.Encoder {
 }
 
 func getLogWriter() zapcore.WriteSyncer {
-	file, _ := os.Create("./test.log")
-	return zapcore.AddSync(file)
+	// 使用 lumberjack 进行日志切分
+	lumberJackLogger := &lumberjack.Logger{
+		Filename:   "./test.log",
+		MaxSize:    10,
+		MaxBackups: 5,
+		MaxAge:     30,
+		Compress:   false,
+	}
+	return zapcore.AddSync(lumberJackLogger)
+
 }
 
 func simpleHttpGet2(url string) {
