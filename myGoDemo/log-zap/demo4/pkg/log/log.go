@@ -12,6 +12,38 @@ import (
 
 type Level = zapcore.Level
 
+func init() {
+	var tops = []TeeOption{
+		{
+			Filename: "access.log",
+			Ropt: RotateOptions{
+				MaxSize:    1,
+				MaxAge:     1,
+				MaxBackups: 3,
+				Compress:   false,
+			},
+			Lef: func(lvl Level) bool {
+				return lvl <= InfoLevel
+			},
+		},
+		{
+			Filename: "error.log",
+			Ropt: RotateOptions{
+				MaxSize:    1,
+				MaxAge:     1,
+				MaxBackups: 3,
+				Compress:   false,
+			},
+			Lef: func(lvl Level) bool {
+				return lvl > InfoLevel
+			},
+		},
+	}
+
+	logger := NewTeeWithRotate(tops)
+	ResetDefault(logger)
+}
+
 const (
 	InfoLevel   Level = zap.InfoLevel   // 0, default level
 	WarnLevel   Level = zap.WarnLevel   // 1

@@ -8,7 +8,7 @@ import (
 
 func main() {
 	data := &Options{
-		LogFileDir: "/Users/didi/code/golang/learn-go/zap_log/v3/logs",
+		LogFileDir: "./logs",
 		AppName:    "logtool",
 		MaxSize:    30,
 		MaxBackups: 7,

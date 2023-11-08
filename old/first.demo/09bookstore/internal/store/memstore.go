@@ -6,6 +6,7 @@ import (
 	"sync"
 )
 
+// 注册到factory，只要导入这个包，就可以自动完成注册动作
 func init() {
 	factory.Register("mem", &MemStore{
 		books: make(map[string]*mystore.Book),

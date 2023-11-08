@@ -1,5 +1,6 @@
 开源日志框架zap 的使用
 https://mp.weixin.qq.com/s/cU5y465F7bhzVk6cHp0qVA
+https://tonybai.com/2021/07/14/uber-zap-advanced-usage/
 
 ## demo1
 main 是基本使用

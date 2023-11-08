@@ -7,6 +7,7 @@ var (
 	ErrExist    = errors.New("exist")
 )
 
+// 图书数据类型
 type Book struct {
 	Id      string   `json:"id"`      // 图书ISBN ID
 	Name    string   `json:"name"`    // 图书名称
@@ -14,6 +15,7 @@ type Book struct {
 	Press   string   `json:"press"`   // 出版社
 }
 
+// 接口类型
 type Store interface {
 	Create(*Book) error
 	Update(*Book) error
