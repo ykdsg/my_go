@@ -38,7 +38,7 @@ func (p *Pool) Schedule(t Task) error {
 func (p *Pool) Free() {
 	close(p.quite)
 	p.wg.Wait()
-	fmt.Println("workpool freed")
+	fmt.Println("workpool freed @@@@@@@@@@")
 }
 
 func (p *Pool) run() {
@@ -56,7 +56,6 @@ func (p *Pool) run() {
 }
 
 func (p *Pool) newWorker(idx int) {
-	fmt.Printf("worker[%03d]: start\n", idx)
 	p.wg.Add(1)
 	go func() {
 		fmt.Printf("worker[%03d]: start+++++\n", idx)
@@ -97,7 +96,7 @@ func New(capacity int) *Pool {
 		quite:    make(chan struct{}),
 	}
 
-	fmt.Println("workerpool1 start+++++")
+	fmt.Println("workerpool1 start ###########")
 	go p.run()
 	return p
 }
