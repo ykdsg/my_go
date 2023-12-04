@@ -24,6 +24,7 @@ func NewBookStoreServer(addr string, s store.Store) *BookStoreServer {
 		},
 	}
 
+	// 使用第三方包mux进行复杂的URI路径匹配
 	router := mux.NewRouter()
 	router.HandleFunc("/book", srv.createBookHandler).Methods("POST")
 	router.HandleFunc("/book/{id}", srv.updateBookHandler).Methods("POST")
