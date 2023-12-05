@@ -1,7 +1,7 @@
 package main
 
 import (
-	workpool1 "com.yk/demo/workpool"
+	workpool1 "com.yk/demo/workpool1"
 	"time"
 )
 
