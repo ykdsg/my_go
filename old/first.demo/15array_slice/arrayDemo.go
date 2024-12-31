@@ -20,7 +20,7 @@ func arrayDemo1() {
 	fmt.Printf("arr3 =  %v\n", arr3)
 
 	var arr4 = [...]int{
-		9: 39, // 将第9个元素(下标值为9)的值赋值为39，其余元素值均为0
+		9: 39, // 将第10个元素(下标值为9)的值赋值为39，其余元素值均为0
 	}
 	fmt.Printf("arr4 type=  %T\n", arr4)
 	fmt.Printf("arr4 =  %v\n", arr4)
