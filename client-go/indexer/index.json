@@ -1,0 +1,6 @@
+{
+  "default": ["index-pod-1", "index-pod-2"],
+  "kube-sysme": ["index-pod3"]
+  "node1": ["index-pod-1"],
+  "node2": ["index-pod-2",  "index-pod-3"]
+}
