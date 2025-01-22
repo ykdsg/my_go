@@ -7,6 +7,11 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var log = logrus.New()
+
+/*
+ * 基础日志轮转配置
+ */
 func init() {
 	path := "./log.log"
 
@@ -19,15 +24,30 @@ func init() {
 	*/
 	writer, _ := rotatelogs.New(
 		path+".%Y%m%d",
-		rotatelogs.WithLinkName(path),
+		// rotatelogs.WithLinkName(path), // 生成软链，指向最新日志文件
 		rotatelogs.WithRotationCount(10),
-		rotatelogs.WithRotationTime(time.Hour*24),
+		rotatelogs.WithRotationTime(time.Hour*24), // 日志切割时间间隔
 	)
 
-	logrus.SetOutput(writer)
-	logrus.SetFormatter(&logrus.JSONFormatter{})
+	log.SetOutput(writer)
+	log.SetFormatter(&logrus.JSONFormatter{})
 }
 
 func main() {
-	logrus.Errorf("test")
+	for i := 0; i < 10; i++ {
+		log.Infof("test")
+		// logrus不推荐使用冗长的消息来记录运行信息,它推荐使用Fields来进行精细化的、结构化的信息记录
+		log.WithFields(logrus.Fields{
+			"omg":    true,
+			"number": 22}).Warn("The number is big")
+
+		entry := log.WithFields(logrus.Fields{
+			"omg":    true,
+			"number": 100,
+		})
+		entry.Error("The number is so big")
+
+		// log.Fatal() 输出日志后进程退出
+		// log.Panic() 输出日志进程退出，并抛出异常
+	}
 }
